@@ -1,3 +1,4 @@
+import CustomPopover from "@/components/common/custom-popover"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -8,7 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { EllipsisVerticalIcon } from "@hugeicons/core-free-icons"
+import {
+  Audit01Icon,
+  Delete02Icon,
+  Edit02Icon,
+  EllipsisVerticalIcon,
+  Share08Icon,
+} from "@hugeicons/core-free-icons"
 import BookmarkAdd01Icon from "@hugeicons/core-free-icons/BookmarkAdd01Icon"
 import Calendar03Icon from "@hugeicons/core-free-icons/Calendar03Icon"
 import MoneyBag02Icon from "@hugeicons/core-free-icons/MoneyBag02Icon"
@@ -66,9 +73,38 @@ export default function TaskListCards() {
               <Button variant={"outline"}>View Details</Button>
               <Button>Apply Now</Button>
             </div>
-            <Button variant={"ghost"} size={"icon-lg"}>
-              <HugeiconsIcon icon={EllipsisVerticalIcon} />
-            </Button>
+            <div>
+              <Button variant={"ghost"}>
+                <HugeiconsIcon icon={Share08Icon} />
+              </Button>
+              <CustomPopover
+                render={
+                  <Button variant={"ghost"} size={"icon-lg"}>
+                    <HugeiconsIcon icon={EllipsisVerticalIcon} />
+                  </Button>
+                }
+                width="120px"
+                align="end"
+                popoverContent={
+                  <div className="flex flex-col gap-2">
+                    <Button variant={"ghost"}>
+                      <HugeiconsIcon icon={Edit02Icon} />
+                      Edit
+                    </Button>
+
+                    <Button variant={"ghost"}>
+                      <HugeiconsIcon icon={Audit01Icon} />
+                      Report
+                    </Button>
+
+                    <Button variant={"destructive"}>
+                      <HugeiconsIcon icon={Delete02Icon} />
+                      Delete
+                    </Button>
+                  </div>
+                }
+              />
+            </div>
           </CardFooter>
         </Card>
       ))}
