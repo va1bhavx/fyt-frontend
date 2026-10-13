@@ -13,7 +13,7 @@ export default function PageHeader({
         <h1 className="text-2xl font-medium md:text-3xl">{title}</h1>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
-      <div>{action}</div>
+      {action && <div>{action}</div>}
     </div>
   )
 }
