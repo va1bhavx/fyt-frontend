@@ -2,10 +2,11 @@ import PageHeader from "@/components/common/page-header"
 import { Button } from "@/components/ui/button"
 import { Plus } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import TaskListContainer from "./task-list-container"
 
 export default function TaskListingPage() {
   return (
-    <section>
+    <section aria-label="Task listing page" className="flex flex-col gap-8">
       <PageHeader
         title="Tasks"
         description="Find tasks according to what you want to do."
@@ -16,6 +17,8 @@ export default function TaskListingPage() {
           </Button>
         }
       />
+
+      <TaskListContainer />
     </section>
   )
 }
