@@ -33,7 +33,7 @@ export default function TaskListContainer() {
           />
           <Input
             placeholder="Search by task name"
-            className="h-10 w-full overflow-hidden pl-8"
+            className="h-10 w-full overflow-hidden pl-10"
           />
           <Button
             variant={"ghost"}

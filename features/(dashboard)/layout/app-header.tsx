@@ -1,3 +1,9 @@
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function AppHeader() {
@@ -6,7 +12,14 @@ export default function AppHeader() {
       <div>
         <SidebarTrigger />
       </div>
-      <h1>App Header</h1>
+      <div>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>Workspace</BreadcrumbItem>
+            <BreadcrumbSeparator />
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
     </div>
   )
 }

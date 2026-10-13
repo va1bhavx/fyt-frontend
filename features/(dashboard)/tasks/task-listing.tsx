@@ -8,8 +8,8 @@ export default function TaskListingPage() {
   return (
     <section aria-label="Task listing page" className="flex flex-col gap-8">
       <PageHeader
-        title="Tasks"
-        description="Find tasks according to what you want to do."
+        title="Discover Tasks"
+        description="Explore opportunities, submit offers, and turn your skills into meaningful work."
         action={
           <Button size={"lg"}>
             <HugeiconsIcon icon={Plus} />
