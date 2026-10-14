@@ -26,6 +26,10 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
+interface TaskEditorProps {
+  onChange: (value: string) => void
+}
+
 interface ToolbarButtonProps {
   editor: Editor
   label: string
@@ -61,7 +65,7 @@ function ToolbarButton({
   )
 }
 
-export default function TaskEditor() {
+export default function TaskEditor({ onChange }: TaskEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -86,6 +90,10 @@ export default function TaskEditor() {
         class: "tiptap-content",
         "aria-label": "Task description editor",
       },
+    },
+    immediatelyRender: false,
+    onUpdate: ({ editor }) => {
+      onChange(editor.getText({ blockSeparator: "\n" }))
     },
   })
 

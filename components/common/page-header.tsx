@@ -8,7 +8,7 @@ export default function PageHeader({
   action?: React.ReactNode
 }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-start justify-between">
       <div>
         <h1 className="text-2xl font-medium md:text-3xl">{title}</h1>
         <p className="text-sm text-muted-foreground">{description}</p>

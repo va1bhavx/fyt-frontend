@@ -37,7 +37,10 @@ export default function CustomSideSheet({
   return (
     <Sheet>
       <SheetTrigger render={sheetTrigger} />
-      <SheetContent style={{ width: width, height: height }}>
+      <SheetContent
+        style={{ width: width, height: height }}
+        className={"overflow-auto"}
+      >
         <SheetHeader className="border-b">
           <SheetTitle className={sheetTitleClassname}>{sheetTitle}</SheetTitle>
           <SheetDescription className={sheetDescriptionClassname}>
