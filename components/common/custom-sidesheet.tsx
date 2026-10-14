@@ -39,7 +39,7 @@ export default function CustomSideSheet({
       <SheetTrigger render={sheetTrigger} />
       <SheetContent
         style={{ width: width, height: height }}
-        className={"overflow-auto"}
+        className="flex h-dvh flex-col overflow-hidden"
       >
         <SheetHeader className="border-b">
           <SheetTitle className={sheetTitleClassname}>{sheetTitle}</SheetTitle>
@@ -47,7 +47,11 @@ export default function CustomSideSheet({
             {sheetDescription}
           </SheetDescription>
         </SheetHeader>
-        <div className={`${sheetContentClassname} p-6`}>{children}</div>
+        <div
+          className={`${sheetContentClassname} min-h-0 flex-1 overflow-hidden p-6`}
+        >
+          {children}
+        </div>
         <SheetFooter>
           {sheetFooter && <>{sheetFooter}</>}
           {sheetClose && <SheetClose render={sheetClose} />}
