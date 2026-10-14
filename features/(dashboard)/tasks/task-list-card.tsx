@@ -34,7 +34,7 @@ export default function TaskListCard() {
           </Button>
         </div>
         <div className="flex flex-col gap-3">
-          <div className="flex">
+          <div className="flex w-full justify-between">
             <CardTitle className="text-sm">
               Develop dynamic role check middleware layer for Express
             </CardTitle>
