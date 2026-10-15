@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
+  ArrowLeft01Icon,
   Audit01Icon,
   BookmarkAdd01Icon,
   Delete02Icon,
@@ -11,14 +12,21 @@ import {
   Share08Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import OffersListing from "./offers-listing"
+import Link from "next/link"
+import PostedByCard from "./posted-by-card"
+import SimilarTaskCard from "./similar-task-card"
 
 export default function TaskDetailListingPage() {
   return (
     <section className="flex flex-col gap-3">
-      <div>
-        <Button variant={"ghost"}>Back to task</Button>
-      </div>
-      <section className="flex h-full w-full flex-col gap-4 md:flex-row">
+      <Link href={"/tasks"}>
+        <Button variant={"ghost"}>
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={18} aria-hidden="true" />
+          Back to task
+        </Button>
+      </Link>
+      <section className="flex h-full w-full flex-col gap-8 md:flex-row">
         <div className="flex-2 px-1 py-3 sm:px-2">
           <div className="flex flex-col gap-4 pb-5">
             <div className="flex items-center justify-between">
@@ -42,19 +50,45 @@ export default function TaskDetailListingPage() {
                   align="end"
                   popoverContentClassname="overflow-hidden"
                   popoverContent={
-                    <div className="flex flex-col gap-2">
-                      <Button variant={"ghost"} size={"lg"}>
-                        <HugeiconsIcon icon={Edit02Icon} />
+                    <div className="flex flex-col gap-1">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="w-full justify-start gap-2"
+                      >
+                        <HugeiconsIcon
+                          icon={Edit02Icon}
+                          size={18}
+                          aria-hidden="true"
+                        />
                         Edit
                       </Button>
 
-                      <Button variant={"ghost"} size={"lg"}>
-                        <HugeiconsIcon icon={Audit01Icon} />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="w-full justify-start gap-2"
+                      >
+                        <HugeiconsIcon
+                          icon={Audit01Icon}
+                          size={18}
+                          aria-hidden="true"
+                        />
                         Report
                       </Button>
 
-                      <Button variant={"destructive"} size={"lg"}>
-                        <HugeiconsIcon icon={Delete02Icon} />
+                      <div className="my-1 h-px bg-border" />
+
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        className="w-full justify-start gap-2"
+                      >
+                        <HugeiconsIcon
+                          icon={Delete02Icon}
+                          size={18}
+                          aria-hidden="true"
+                        />
                         Delete
                       </Button>
                     </div>
@@ -92,7 +126,7 @@ export default function TaskDetailListingPage() {
               </div>
               <div className="w-full sm:w-max">
                 <Button size={"lg"} className={"w-full"}>
-                  Apply Now
+                  Send Offer
                 </Button>
               </div>
             </div>
@@ -125,7 +159,7 @@ export default function TaskDetailListingPage() {
               sometimes on purpose (injected humour and the like).
             </p>
           </div>
-          <div className="space-y-3 border-t pt-5">
+          <div className="space-y-3 border-t pt-5 pb-5">
             <h4 className="text-sm font-semibold">Attachments</h4>
             <div className="grid grid-cols-2 gap-4">
               {[1, 2, 3, 4, 5].map((_, i) => (
@@ -146,9 +180,11 @@ export default function TaskDetailListingPage() {
               ))}
             </div>
           </div>
+          <OffersListing />
         </div>
-        <div className="h-full flex-1 bg-gray-500">
-          <h2>Hello world</h2>
+        <div className="flex h-full flex-1 flex-col gap-4">
+          <PostedByCard />
+          <SimilarTaskCard />
         </div>
       </section>
     </section>

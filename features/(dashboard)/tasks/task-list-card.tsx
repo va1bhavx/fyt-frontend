@@ -78,7 +78,7 @@ export default function TaskListCard() {
               View Details
             </Button>
           </Link>
-          <Button size={"lg"}>Apply Now</Button>
+          {/*<Button size={"lg"}>Apply Now</Button>*/}
         </div>
         <div>
           <Button variant={"ghost"}>
@@ -94,19 +94,45 @@ export default function TaskListCard() {
             align="end"
             popoverContentClassname="overflow-hidden"
             popoverContent={
-              <div className="flex flex-col gap-2">
-                <Button variant={"ghost"} size={"lg"}>
-                  <HugeiconsIcon icon={Edit02Icon} />
+              <div className="flex flex-col gap-1">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full justify-start gap-2"
+                >
+                  <HugeiconsIcon
+                    icon={Edit02Icon}
+                    size={18}
+                    aria-hidden="true"
+                  />
                   Edit
                 </Button>
 
-                <Button variant={"ghost"} size={"lg"}>
-                  <HugeiconsIcon icon={Audit01Icon} />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full justify-start gap-2"
+                >
+                  <HugeiconsIcon
+                    icon={Audit01Icon}
+                    size={18}
+                    aria-hidden="true"
+                  />
                   Report
                 </Button>
 
-                <Button variant={"destructive"} size={"lg"}>
-                  <HugeiconsIcon icon={Delete02Icon} />
+                <div className="my-1 h-px bg-border" />
+
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="w-full justify-start gap-2"
+                >
+                  <HugeiconsIcon
+                    icon={Delete02Icon}
+                    size={18}
+                    aria-hidden="true"
+                  />
                   Delete
                 </Button>
               </div>
