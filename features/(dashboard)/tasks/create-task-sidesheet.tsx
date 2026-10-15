@@ -9,11 +9,17 @@ import TaskEditor from "./task-editor"
 import TaskPreview from "./task-preview"
 import { Controller, useForm, useWatch } from "react-hook-form"
 import {
+  MAX_ATTACHMENT_SIZE,
+  MAX_TASK_ATTACHMENTS,
+  TASK_ATTACHMENT_ACCEPT,
   TaskFormValues,
   taskSchema,
   TaskSubmitValues,
 } from "@/lib/validations/tasks"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { CustomCalendar } from "@/components/common/custom-calendar"
+import { useState } from "react"
+import { CustomUpload } from "@/components/common/custom-uppload"
 
 interface BaseDropdown {
   key: string
@@ -49,10 +55,14 @@ export default function CreateTaskSideSheet() {
       category: "",
       requirements: "",
       budget: "",
+      deadline: undefined,
+      attachments: [],
     },
   })
 
   const task = useWatch({ control })
+  const [deadline, setDeadline] = useState<Date | undefined>(undefined)
+  const [attachments, setAttachments] = useState<File[]>([])
 
   async function onSubmit(data: TaskSubmitValues) {
     // Runs only after successful validation.
@@ -63,7 +73,6 @@ export default function CreateTaskSideSheet() {
 
   return (
     <section className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)] overflow-hidden lg:grid-cols-2">
-      {/* Form */}
       <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
         <form
           className="flex min-h-0 flex-1 flex-col overflow-hidden"
@@ -175,6 +184,36 @@ export default function CreateTaskSideSheet() {
                   )}
                 </div>
               </div>
+
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="task-deadline">Deadline</Label>
+
+                  <Controller
+                    name="deadline"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <CustomCalendar
+                          id="task-deadline"
+                          mode="single"
+                          value={field.value}
+                          onChange={(date) => {
+                            field.onChange(date)
+                            field.onBlur()
+                          }}
+                          captionLayout="label"
+                        />
+                        {fieldState.error && (
+                          <p role="alert" className="text-xs text-destructive">
+                            {fieldState.error.message}
+                          </p>
+                        )}
+                      </>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4 border-t pt-6">
@@ -203,6 +242,35 @@ export default function CreateTaskSideSheet() {
                 />
               </div>
             </div>
+            <div className="space-y-2">
+              <Controller
+                name="attachments"
+                control={control}
+                render={({ field, fieldState }) => {
+                  // Zod file errors can occur at array level or on an individual file.
+                  const attachmentError =
+                    fieldState.error?.message ??
+                    fieldState.error?.root?.message ??
+                    field.value
+                      .map((_, index) => errors.attachments?.[index]?.message)
+                      .find(Boolean)
+
+                  return (
+                    <CustomUpload
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      error={attachmentError}
+                      title="Task attachments"
+                      description="Add documents, screenshots, or references for this task."
+                      accept={TASK_ATTACHMENT_ACCEPT}
+                      maxFiles={MAX_TASK_ATTACHMENTS}
+                      maxSize={MAX_ATTACHMENT_SIZE}
+                    />
+                  )
+                }}
+              />
+            </div>
           </div>
 
           <footer className="mt-4 flex shrink-0 items-center justify-between gap-4 border-t px-4 py-2 sm:px-6">
@@ -220,15 +288,7 @@ export default function CreateTaskSideSheet() {
         </form>
       </div>
 
-      {/* Preview — connect this to form state next */}
       <aside className="hidden min-h-0 min-w-0 flex-col overflow-hidden border-l lg:flex">
-        {/*<header className="border-b px-8 py-3">
-          <p className="text-sm font-semibold">Task preview</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            See how your task will look as you fill in the form.
-          </p>
-        </header>*/}
-
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-8">
           <div className="">
             <TaskPreview
@@ -238,6 +298,8 @@ export default function CreateTaskSideSheet() {
                 category: task.category ?? "",
                 budget: task.budget ?? "",
                 requirements: task.requirements ?? "",
+                deadline: task.deadline,
+                attachments: task.attachments ?? [],
               }}
             />
           </div>

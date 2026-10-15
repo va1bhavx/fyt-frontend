@@ -21,6 +21,7 @@ import {
   UserAccountIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import Link from "next/link"
 
 export default function TaskListCard() {
   return (
@@ -72,9 +73,11 @@ export default function TaskListCard() {
       </CardContent>
       <CardFooter className="flex items-center justify-between overflow-hidden border-t">
         <div className="flex items-center gap-3 overflow-hidden">
-          <Button variant={"outline"} size={"lg"}>
-            View Details
-          </Button>
+          <Link href={"/tasks/12"}>
+            <Button variant={"outline"} size={"lg"}>
+              View Details
+            </Button>
+          </Link>
           <Button size={"lg"}>Apply Now</Button>
         </div>
         <div>
