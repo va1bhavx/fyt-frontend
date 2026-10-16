@@ -36,10 +36,10 @@ export default function TaskListCard() {
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex w-full justify-between">
-            <CardTitle className="text-sm">
+            <CardTitle className="w-full max-w-70 text-lg">
               Develop dynamic role check middleware layer for Express
             </CardTitle>
-            <p className="text-xl font-extrabold text-primary">₹40K</p>
+            <p className="text-2xl font-extrabold text-sidebar-primary">₹40K</p>
           </div>
           <CardDescription>
             Our platform needs a modular role authorization block inserted into
