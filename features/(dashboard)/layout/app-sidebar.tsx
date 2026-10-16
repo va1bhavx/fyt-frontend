@@ -63,7 +63,7 @@ export default function AppSidebar() {
                   >
                     <Link
                       href={link.url}
-                      className="flex items-center gap-3 disabled:cursor-not-allowed"
+                      className="flex items-center gap-3 disabled:cursor-not-allowed disabled:opacity-10"
                       aria-disabled={link.disabled}
                     >
                       <HugeiconsIcon

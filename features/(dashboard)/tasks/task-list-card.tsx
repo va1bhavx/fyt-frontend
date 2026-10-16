@@ -81,12 +81,12 @@ export default function TaskListCard() {
           {/*<Button size={"lg"}>Apply Now</Button>*/}
         </div>
         <div>
-          <Button variant={"ghost"}>
+          <Button variant={"ghost"} size={"icon-lg"}>
             <HugeiconsIcon icon={Share08Icon} />
           </Button>
           <CustomPopover
             render={
-              <Button variant={"ghost"} size={"lg"}>
+              <Button variant={"ghost"} size={"icon-lg"}>
                 <HugeiconsIcon icon={EllipsisVerticalIcon} />
               </Button>
             }
