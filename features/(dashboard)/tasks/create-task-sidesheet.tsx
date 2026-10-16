@@ -18,7 +18,6 @@ import {
 } from "@/lib/validations/tasks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CustomCalendar } from "@/components/common/custom-calendar"
-import { useState } from "react"
 import { CustomUpload } from "@/components/common/custom-uppload"
 
 interface BaseDropdown {
@@ -61,9 +60,6 @@ export default function CreateTaskSideSheet() {
   })
 
   const task = useWatch({ control })
-  const [deadline, setDeadline] = useState<Date | undefined>(undefined)
-  const [attachments, setAttachments] = useState<File[]>([])
-
   async function onSubmit(data: TaskSubmitValues) {
     // Runs only after successful validation.
     console.log(data)
@@ -81,13 +77,6 @@ export default function CreateTaskSideSheet() {
         >
           <div className="min-h-0 flex-1 space-y-8 overflow-y-auto overscroll-contain px-1 sm:px-6">
             <div className="space-y-5">
-              <div>
-                <h3 className="text-sm font-semibold">Task details</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Help people quickly understand your task.
-                </p>
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="task-title">Title</Label>
                 <Input
