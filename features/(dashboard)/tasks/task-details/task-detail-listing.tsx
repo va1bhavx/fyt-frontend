@@ -161,7 +161,7 @@ export default function TaskDetailListingPage() {
           </div>
           <div className="space-y-3 border-t pt-5 pb-5">
             <h4 className="text-sm font-semibold">Attachments</h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 2xl:grid-cols-3">
               {[1, 2, 3, 4, 5].map((_, i) => (
                 <div
                   key={i}
