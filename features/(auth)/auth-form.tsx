@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { Separator } from "@/components/ui/separator"
 
 type AuthFormProps = {
   mode: AuthMode
@@ -12,21 +13,58 @@ type AuthFormProps = {
 
 export function AuthForm({ mode }: AuthFormProps) {
   const isLogin = mode === "login"
-  console.log(mode)
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-2">
-        <h2 className="text-3xl font-bold tracking-tight">
+      <div className="mb-8 flex flex-col gap-1">
+        <h2 className="text-xl font-bold tracking-tight md:text-3xl">
           {isLogin ? "Welcome back" : "Create your account"}
         </h2>
 
-        <p className="text-sm leading-6 text-muted-foreground">
+        <p className="text-xs text-muted-foreground md:text-sm">
           {isLogin
             ? "Log in to continue to your FYT account."
             : "Join FYT and start turning your skills into opportunities."}
         </p>
       </div>
 
+      <div className="mb-4 space-y-5">
+        <Button
+          type="button"
+          variant="outline"
+          className="h-11 w-full"
+          onClick={() => {
+            // Connect your Google OAuth flow here.
+          }}
+        >
+          <svg viewBox="0 0 24 24" className="mr-2 size-4" aria-hidden="true">
+            <path
+              fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.05 5.05 0 0 1-2.2 3.31v2.77h3.57c2.08-1.92 3.27-4.75 3.27-8.09Z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.15v2.84A11 11 0 0 0 12 23Z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.15a11 11 0 0 0 0 9.88l3.69-2.84Z"
+            />
+            <path
+              fill="#EA4335"
+              d="M12 4.36c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45.99 14.97 0 12 0a11 11 0 0 0-9.85 7.06l3.69 2.84C6.71 7.3 9.14 4.36 12 4.36Z"
+            />
+          </svg>
+          Continue with Google
+        </Button>
+
+        <div className="flex items-center gap-4">
+          <Separator className="flex-1" />
+          <span className="text-xs text-muted-foreground">
+            OR CONTINUE WITH EMAIL
+          </span>
+          <Separator className="flex-1" />
+        </div>
+      </div>
       {/* Move your existing Google button and separator here. */}
 
       <form className="space-y-6">

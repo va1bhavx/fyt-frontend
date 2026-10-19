@@ -19,7 +19,7 @@ export default function AuthContainer() {
   }
 
   return (
-    <section className="min-h-[calc(100vh-72px)] lg:grid lg:grid-cols-2">
+    <section className="min-h-[calc(100vh-32px)] lg:grid lg:grid-cols-2">
       <AuthHero mode={activeTab} />
 
       <section className="relative z-10 -mt-8 flex items-center justify-center rounded-t-[2rem] bg-background px-5 pt-8 pb-10 lg:mt-0 lg:rounded-none lg:py-10">
