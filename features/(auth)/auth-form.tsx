@@ -29,7 +29,7 @@ export function AuthForm({ mode }: AuthFormProps) {
 
       {/* Move your existing Google button and separator here. */}
 
-      <form className="space-y-4">
+      <form className="space-y-6">
         {!isLogin && (
           <div className="space-y-2">
             {/* Keep your existing full-name Label and Input here. */}
@@ -40,6 +40,23 @@ export function AuthForm({ mode }: AuthFormProps) {
                 name="name"
                 placeholder="Enter your full name"
                 autoComplete="name"
+                required
+                className="h-11"
+              />
+            </div>
+          </div>
+        )}
+
+        {!isLogin && (
+          <div className="space-y-2">
+            {/* Keep your existing full-name Label and Input here. */}
+            <div className="space-y-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                autoComplete="username"
                 required
                 className="h-11"
               />
