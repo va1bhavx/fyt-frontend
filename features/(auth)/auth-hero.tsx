@@ -63,10 +63,14 @@ export function AuthHero({ mode }: AuthHeroProps) {
           </div>
         </div>
 
-        <p className="text-xs text-muted-foreground">
-          Built for people who get things done. · © {new Date().getFullYear()}{" "}
-          FYT
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-muted-foreground">
+            Built for people who get things done.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()}
+          </p>
+        </div>
       </section>
 
       <section className="relative overflow-hidden bg-primary/10 px-6 pt-8 pb-16 lg:hidden">
