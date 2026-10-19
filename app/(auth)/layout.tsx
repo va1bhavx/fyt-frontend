@@ -6,8 +6,8 @@ export default function AuthLayout({
   children: ReactNode
 }>) {
   return (
-    <section className="p-2">
-      <div className="mx-auto w-full p-4">{children}</div>
+    <section className="">
+      <div className="mx-auto w-full">{children}</div>
     </section>
   )
 }

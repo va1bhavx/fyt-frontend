@@ -23,7 +23,6 @@ export function AuthHero({ mode }: AuthHeroProps) {
 
   return (
     <>
-      {/* Desktop hero */}
       <section className="relative hidden flex-col justify-between overflow-hidden bg-primary/5 p-10 lg:flex xl:p-14">
         <Link href="/" className="text-xl font-bold">
           FYT
@@ -31,19 +30,7 @@ export function AuthHero({ mode }: AuthHeroProps) {
 
         <div className="my-12 max-w-lg">
           <h1 className="text-4xl font-bold tracking-tight xl:text-5xl">
-            {isLogin ? (
-              <>
-                Good to have you
-                <br />
-                <span className="text-primary">back.</span>
-              </>
-            ) : (
-              <>
-                Small tasks.
-                <br />
-                <span className="text-primary">Real opportunities.</span>
-              </>
-            )}
+            {title}
           </h1>
 
           <p className="mt-5 leading-7 text-muted-foreground">{description}</p>
@@ -82,20 +69,7 @@ export function AuthHero({ mode }: AuthHeroProps) {
         </p>
       </section>
 
-      {/* Mobile hero */}
-      <section className="relative overflow-hidden bg-[#101112] px-6 pt-8 pb-16 text-white lg:hidden">
-        <Link
-          href="/"
-          aria-label="Back to home"
-          className="mb-8 inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5"
-        >
-          <HugeiconsIcon
-            icon={ArrowRight01Icon}
-            size={20}
-            className="rotate-180"
-          />
-        </Link>
-
+      <section className="relative overflow-hidden bg-primary/10 px-6 pt-8 pb-16 lg:hidden">
         <h1 className="max-w-sm text-3xl leading-tight font-bold tracking-tight">
           {isLogin ? (
             <>
@@ -112,7 +86,7 @@ export function AuthHero({ mode }: AuthHeroProps) {
           )}
         </h1>
 
-        <p className="mt-3 max-w-sm text-sm leading-6 text-white/60">
+        <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
           {isLogin
             ? "Pick up where you left off. Discover new tasks and keep making progress on FYT."
             : "Turn your skills into earnings. Find meaningful tasks and get rewarded for what you do."}
