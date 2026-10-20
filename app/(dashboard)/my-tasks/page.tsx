@@ -1,5 +1,5 @@
-import Empty from "@/components/common/empty"
+import MyTasksListing from "@/features/(dashboard)/my-tasks/my-tasks-listing"
 
 export default function MyTasksPage() {
-  return <Empty />
+  return <MyTasksListing />
 }
