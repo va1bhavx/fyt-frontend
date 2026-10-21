@@ -23,7 +23,7 @@ export function AuthHero({ mode }: AuthHeroProps) {
 
   return (
     <>
-      <section className="relative hidden flex-col justify-between overflow-hidden bg-primary/5 p-10 lg:flex xl:p-14">
+      <section className="relative hidden flex-col justify-between overflow-hidden bg-linear-to-tr from-primary/25 via-primary/10 to-primary/5 p-10 lg:flex xl:p-14">
         <Link href="/" className="text-xl font-bold">
           FYT
         </Link>
