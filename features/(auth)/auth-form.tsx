@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { Separator } from "@/components/ui/separator"
+import Image from "next/image"
 
 type AuthFormProps = {
   mode: AuthMode
@@ -16,6 +17,21 @@ export function AuthForm({ mode }: AuthFormProps) {
   return (
     <div>
       <div className="mb-8 flex flex-col gap-1">
+        <Link
+          href="/"
+          aria-label="FYT home"
+          className="mb-2 block h-8 w-[60px] overflow-hidden md:hidden"
+        >
+          <Image
+            src="/fyt_logo.png"
+            alt="FYT"
+            width={100}
+            height={40}
+            priority
+            className="relative left-[-6px] block h-8 w-auto max-w-none object-contain"
+          />
+        </Link>
+
         <h2 className="text-xl font-bold tracking-tight md:text-3xl">
           {isLogin ? "Welcome back" : "Create your account"}
         </h2>

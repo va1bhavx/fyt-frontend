@@ -4,6 +4,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { AuthMode } from "./auth-container"
 import { LOGIN_STEPS, REGISTER_STEPS } from "./auth-config"
+import Image from "next/image"
 
 type AuthHeroProps = {
   mode: AuthMode
@@ -24,8 +25,19 @@ export function AuthHero({ mode }: AuthHeroProps) {
   return (
     <>
       <section className="relative hidden flex-col justify-between overflow-hidden bg-linear-to-tr from-primary/25 via-primary/10 to-primary/5 p-10 lg:flex xl:p-14">
-        <Link href="/" className="text-xl font-bold">
-          FYT
+        <Link
+          href="/"
+          aria-label="FYT home"
+          className="mb-2 block h-20 w-[100px] overflow-hidden"
+        >
+          <Image
+            src="/fyt_logo.png"
+            alt="FYT"
+            width={300}
+            height={300}
+            priority
+            className="relative left-[-6px] block object-contain"
+          />
         </Link>
 
         <div className="my-12 max-w-lg">

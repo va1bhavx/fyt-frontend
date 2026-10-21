@@ -18,6 +18,7 @@ import {
 
 import { SIDEBAR_LINKS } from "@/data/sidebar-links"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import Image from "next/image"
 
 export default function AppSidebar() {
   const pathname = usePathname()
@@ -26,9 +27,13 @@ export default function AppSidebar() {
     <Sidebar variant="sidebar" collapsible="icon">
       <SidebarHeader className="border-b px-4 py-4">
         <Link href="/dashboard" className="flex items-center gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground shadow-sm">
-            FYT
-          </span>
+          <Image
+            src="/fyt_logo.png"
+            alt="FYT"
+            width={60}
+            height={60}
+            priority
+          />
 
           <div className="flex flex-col group-data-[collapsible=icon]:hidden">
             <span className="text-sm font-semibold tracking-tight">
