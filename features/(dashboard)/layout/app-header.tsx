@@ -1,10 +1,11 @@
+import InstallFYTButton from "@/components/common/install-fyt-button"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function AppHeader() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-between">
       <div>
         <SidebarTrigger size={"lg"} />
       </div>
@@ -19,6 +20,7 @@ export default function AppHeader() {
           />
         </Link>
       </div>
+      <InstallFYTButton />
     </div>
   )
 }
