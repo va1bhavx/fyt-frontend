@@ -15,6 +15,7 @@ import MyTasksHeader from "./my-tasks-header"
 import { useState } from "react"
 import TaskListCards from "../tasks/task-list-cards"
 import OfferCardsHolder from "../tasks/task-details/offer-cards-holder"
+import OfferCard from "../tasks/task-details/offer-card"
 
 const tabs = [
   { key: "tasks", value: "Tasks", icon: Task01Icon },
@@ -69,7 +70,11 @@ export default function MyTasksListing() {
           </TabsContent>
 
           <TabsContent value="offers" className="mt-0 w-full">
-            <OfferCardsHolder />
+            <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((offerId) => (
+                <OfferCard key={offerId} />
+              ))}
+            </div>
           </TabsContent>
 
           <TabsContent value="contracts" className="mt-0 w-full">
