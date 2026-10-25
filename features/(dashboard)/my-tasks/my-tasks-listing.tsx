@@ -12,10 +12,10 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import MyTasksHeader from "./my-tasks-header"
-import { useState } from "react"
 import TaskListCards from "../tasks/task-list-cards"
-import OfferCardsHolder from "../tasks/task-details/offer-cards-holder"
-import OfferCard from "../tasks/task-details/offer-card"
+import MyOffersListing from "./my-offers-listing"
+import MyContractsListing from "./my-contracts-listing"
+import { usePathname, useSearchParams, useRouter } from "next/navigation"
 
 const tabs = [
   { key: "tasks", value: "Tasks", icon: Task01Icon },
@@ -24,7 +24,19 @@ const tabs = [
 ]
 
 export default function MyTasksListing() {
-  const [activeTab, setActiveTab] = useState("tasks")
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const activeTab = searchParams.get("tab")
+  const handleTabClick = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (!params) {
+      return alert("Wait! we need some params")
+    }
+
+    params.set("tab", value)
+    router.push(`${pathname}?${params.toString()}`)
+  }
 
   return (
     <section className="flex w-full flex-col gap-8 md:gap-12">
@@ -32,7 +44,7 @@ export default function MyTasksListing() {
 
       <Tabs
         value={activeTab}
-        onValueChange={setActiveTab}
+        onValueChange={handleTabClick}
         className="flex w-full flex-col gap-6"
       >
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -70,17 +82,11 @@ export default function MyTasksListing() {
           </TabsContent>
 
           <TabsContent value="offers" className="mt-0 w-full">
-            <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((offerId) => (
-                <OfferCard key={offerId} />
-              ))}
-            </div>
+            <MyOffersListing />
           </TabsContent>
 
           <TabsContent value="contracts" className="mt-0 w-full">
-            <div className="w-full rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-              Contracts Content (Full Width)
-            </div>
+            <MyContractsListing />
           </TabsContent>
         </div>
       </Tabs>

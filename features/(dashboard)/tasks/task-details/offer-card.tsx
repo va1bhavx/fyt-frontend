@@ -143,7 +143,7 @@ export default function OfferCard() {
 
       {/* Bottom bar: Skills on the left, CTA on the right */}
       <CardFooter className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 px-5 pt-4 pb-0">
-        <div className="flex flex-wrap items-center gap-1.5">
+        {/*<div className="flex flex-wrap items-center gap-1.5">
           {offer.skills.map((skill) => (
             <Badge
               key={skill}
@@ -153,9 +153,9 @@ export default function OfferCard() {
               {skill}
             </Badge>
           ))}
-        </div>
+        </div>*/}
 
-        <div className="flex w-full items-center justify-end gap-2 sm:w-auto">
+        <div className="ml-auto flex w-full items-center justify-end gap-2 sm:w-auto">
           {offer.status !== "Pending" && (
             <Badge variant="outline" className="text-xs font-normal">
               {offer.status}

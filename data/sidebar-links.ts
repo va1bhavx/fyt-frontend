@@ -34,7 +34,7 @@ export const SIDEBAR_LINKS: SidebarLink[] = [
   {
     id: "my-tasks",
     title: "My Tasks",
-    url: "/my-tasks",
+    url: "/my-tasks?tab=tasks",
     icon: Task01Icon,
   },
   {
