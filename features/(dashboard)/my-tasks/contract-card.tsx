@@ -1,4 +1,3 @@
-import React from "react"
 import {
   Card,
   CardContent,
@@ -24,13 +23,14 @@ export type ContractStatus = "Active" | "Submitted" | "Completed"
 export type CategoryVariant = "Development" | "Design" | "Writing" | string
 
 export interface ContractCardProps {
-  title: string
-  description: string
-  category: CategoryVariant
-  status: ContractStatus
-  budget: string
-  deadline: string
-  workerName: string
+  key?: number
+  title?: string
+  description?: string
+  category?: CategoryVariant
+  status?: ContractStatus
+  budget?: string
+  deadline?: string
+  workerName?: string
   workerInitials?: string
   onClick?: () => void
 }
