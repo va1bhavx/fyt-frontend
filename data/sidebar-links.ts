@@ -40,13 +40,13 @@ export const SIDEBAR_LINKS: SidebarLink[] = [
   {
     id: "my-offers",
     title: "My Offers",
-    url: "/offers",
+    url: "/my-tasks?tab=offers",
     icon: SentIcon,
   },
   {
     id: "contracts",
     title: "My Contracts",
-    url: "/contracts",
+    url: "/my-tasks?tab=contracts",
     icon: Briefcase01Icon,
   },
   // {

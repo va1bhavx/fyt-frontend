@@ -21,8 +21,10 @@ export default function CustomSideSheet({
   sheetFooter,
   width = "100%",
   height = "100%",
+  open,
+  onOpenChange,
 }: {
-  sheetTrigger: React.ReactElement
+  sheetTrigger?: React.ReactElement
   sheetTitle: string
   sheetDescription: string
   children: React.ReactElement
@@ -33,10 +35,12 @@ export default function CustomSideSheet({
   sheetFooter?: React.ReactElement
   width?: string | number
   height?: string | number
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }) {
   return (
-    <Sheet>
-      <SheetTrigger render={sheetTrigger} />
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      {sheetTrigger && <SheetTrigger render={sheetTrigger} />}
       <SheetContent
         style={{ width: width, height: height }}
         className="flex h-dvh flex-col overflow-hidden"

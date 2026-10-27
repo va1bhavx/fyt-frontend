@@ -8,6 +8,7 @@ import {
 
 import AppHeader from "@/features/(dashboard)/layout/app-header"
 import AppSidebar from "@/features/(dashboard)/layout/app-sidebar"
+import MobileDock from "@/features/(dashboard)/layout/mobile-dock"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
 export default function DashboardLayout({
@@ -29,12 +30,15 @@ export default function DashboardLayout({
           </header>
 
           {/* Page content */}
-          <main className="flex-1">
+          <main className="flex-1 pb-24 md:pb-6">
             <div className="mx-auto w-full max-w-[1600px] p-4 md:p-6">
               {children}
             </div>
           </main>
         </SidebarInset>
+
+        {/* Mobile Apple-inspired glass dock */}
+        <MobileDock />
       </SidebarProvider>
     </TooltipProvider>
   )

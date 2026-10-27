@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Manrope, Roboto } from "next/font/google"
+import { Geist_Mono, Manrope, Roboto } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     template: "%s | FYT",
   },
   description: "Discover tasks, share your skills, and get work done with FYT.",
+  icons: {
+    icon: "/fyt-icon-512.png",
+  },
 }
 
 export const viewport: Viewport = {
