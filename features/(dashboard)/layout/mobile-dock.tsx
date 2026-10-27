@@ -16,12 +16,89 @@ import CustomSideSheet from "@/components/common/custom-sidesheet"
 import CreateTaskSideSheet from "../tasks/create-task-sidesheet"
 import { cn } from "@/lib/utils"
 
+function DockLabel({
+  label,
+  isScrolling,
+}: {
+  label: string
+  isScrolling: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "grid transition-all duration-300 ease-out",
+        isScrolling
+          ? "grid-rows-[0fr] opacity-0 scale-90 -translate-y-0.5"
+          : "grid-rows-[1fr] opacity-100 scale-100 translate-y-0"
+      )}
+    >
+      <div className="overflow-hidden">
+        <span className="mt-1 block text-[10px] tracking-tight leading-none whitespace-nowrap">
+          {label}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function ActiveIndicator({ isScrolling }: { isScrolling: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out",
+        isScrolling
+          ? "size-8 rounded-full bg-primary/15 ring-1 ring-primary/25 shadow-xs dark:bg-primary/25 dark:ring-primary/30"
+          : "size-full rounded-2xl bg-primary/10 dark:bg-primary/20"
+      )}
+    />
+  )
+}
+
 function MobileDockInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const tab = searchParams.get("tab")
   const { toggleSidebar, openMobile } = useSidebar()
   const [createSheetOpen, setCreateSheetOpen] = React.useState(false)
+  const [isScrolling, setIsScrolling] = React.useState(false)
+
+  // Scroll detection to animate & shrink/hide text when scrolling in either direction
+  React.useEffect(() => {
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const delta = Math.abs(currentScrollY - lastScrollY)
+
+      if (currentScrollY <= 12) {
+        setIsScrolling(false)
+        if (scrollTimeout) clearTimeout(scrollTimeout)
+        lastScrollY = currentScrollY
+        return
+      }
+
+      if (delta > 3) {
+        setIsScrolling(true)
+        lastScrollY = currentScrollY
+
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout)
+        }
+
+        scrollTimeout = setTimeout(() => {
+          setIsScrolling(false)
+        }, 1100)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      if (scrollTimeout) clearTimeout(scrollTimeout)
+    }
+  }, [])
 
   // Active status checks
   const isDiscoverActive =
@@ -43,7 +120,14 @@ function MobileDockInner() {
       aria-label="Mobile navigation dock"
       className="fixed inset-x-0 bottom-3 z-40 flex justify-center px-3 pointer-events-none md:hidden pb-[env(safe-area-inset-bottom,0px)]"
     >
-      <nav className="pointer-events-auto relative flex w-full max-w-[390px] items-center justify-between gap-1 rounded-full border border-white/60 bg-white/75 px-2.5 py-1.5 shadow-[0_12px_36px_-4px_rgba(0,0,0,0.16),0_2px_8px_-2px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.85)] backdrop-blur-2xl backdrop-saturate-150 transition-all dark:border-white/10 dark:bg-zinc-900/80 dark:shadow-[0_16px_40px_-4px_rgba(0,0,0,0.65),0_2px_8px_-2px_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)]">
+      <nav
+        className={cn(
+          "pointer-events-auto relative flex w-full items-center justify-between rounded-full border border-white/60 bg-white/75 shadow-[0_12px_36px_-4px_rgba(0,0,0,0.16),0_2px_8px_-2px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.85)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 ease-out dark:border-white/10 dark:bg-zinc-900/80 dark:shadow-[0_16px_40px_-4px_rgba(0,0,0,0.65),0_2px_8px_-2px_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)]",
+          isScrolling
+            ? "max-w-[280px] px-2 py-1 gap-0.5"
+            : "max-w-[390px] px-2.5 py-1.5 gap-1"
+        )}
+      >
         {/* Specular gloss top highlight */}
         <div
           aria-hidden="true"
@@ -53,58 +137,48 @@ function MobileDockInner() {
         {/* 1. Discover */}
         <Link
           href="/tasks"
+          aria-label="Discover Tasks"
           className={cn(
-            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl py-1 text-center transition-transform duration-150 active:scale-90",
+            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl text-center transition-all duration-300 active:scale-90",
+            isScrolling ? "py-0.5" : "py-1",
             isDiscoverActive
               ? "text-primary dark:text-emerald-400 font-semibold"
               : "text-muted-foreground/85 hover:text-foreground"
           )}
         >
-          {isDiscoverActive && (
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-2xl bg-primary/10 transition-all dark:bg-primary/20"
-            />
-          )}
+          {isDiscoverActive && <ActiveIndicator isScrolling={isScrolling} />}
           <div className="relative z-10 flex flex-col items-center">
             <HugeiconsIcon
               icon={Search01Icon}
-              size={20}
+              size={isScrolling ? 19 : 20}
               strokeWidth={isDiscoverActive ? 2.2 : 1.8}
               className="transition-transform duration-200 group-hover:scale-110"
             />
-            <span className="mt-1 text-[10px] tracking-tight leading-none">
-              Discover
-            </span>
+            <DockLabel label="Discover" isScrolling={isScrolling} />
           </div>
         </Link>
 
         {/* 2. My Tasks */}
         <Link
           href="/my-tasks?tab=tasks"
+          aria-label="My Tasks"
           className={cn(
-            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl py-1 text-center transition-transform duration-150 active:scale-90",
+            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl text-center transition-all duration-300 active:scale-90",
+            isScrolling ? "py-0.5" : "py-1",
             isTasksActive
               ? "text-primary dark:text-emerald-400 font-semibold"
               : "text-muted-foreground/85 hover:text-foreground"
           )}
         >
-          {isTasksActive && (
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-2xl bg-primary/10 transition-all dark:bg-primary/20"
-            />
-          )}
+          {isTasksActive && <ActiveIndicator isScrolling={isScrolling} />}
           <div className="relative z-10 flex flex-col items-center">
             <HugeiconsIcon
               icon={Task01Icon}
-              size={20}
+              size={isScrolling ? 19 : 20}
               strokeWidth={isTasksActive ? 2.2 : 1.8}
               className="transition-transform duration-200 group-hover:scale-110"
             />
-            <span className="mt-1 text-[10px] tracking-tight leading-none">
-              Tasks
-            </span>
+            <DockLabel label="Tasks" isScrolling={isScrolling} />
           </div>
         </Link>
 
@@ -119,10 +193,15 @@ function MobileDockInner() {
                 aria-label="Create a task"
                 className="group relative flex items-center justify-center outline-none transition-transform duration-150 active:scale-90"
               >
-                <div className="relative flex size-10 items-center justify-center rounded-full bg-gradient-to-tr from-primary to-emerald-400 text-primary-foreground shadow-[0_4px_16px_rgba(16,185,129,0.35)] ring-2 ring-white/80 transition-all duration-200 group-hover:shadow-[0_6px_20px_rgba(16,185,129,0.5)] group-hover:brightness-105 dark:ring-zinc-800">
+                <div
+                  className={cn(
+                    "relative flex items-center justify-center rounded-full bg-gradient-to-tr from-primary to-emerald-400 text-primary-foreground shadow-[0_4px_16px_rgba(16,185,129,0.35)] ring-2 ring-white/80 transition-all duration-300 group-hover:shadow-[0_6px_20px_rgba(16,185,129,0.5)] group-hover:brightness-105 dark:ring-zinc-800",
+                    isScrolling ? "size-9" : "size-10"
+                  )}
+                >
                   <HugeiconsIcon
                     icon={Add01Icon}
-                    size={22}
+                    size={isScrolling ? 20 : 22}
                     strokeWidth={2.4}
                     className="transition-transform duration-200 group-hover:rotate-90"
                   />
@@ -139,29 +218,24 @@ function MobileDockInner() {
         {/* 4. Offers */}
         <Link
           href="/my-tasks?tab=offers"
+          aria-label="Offers"
           className={cn(
-            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl py-1 text-center transition-transform duration-150 active:scale-90",
+            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl text-center transition-all duration-300 active:scale-90",
+            isScrolling ? "py-0.5" : "py-1",
             isOffersActive
               ? "text-primary dark:text-emerald-400 font-semibold"
               : "text-muted-foreground/85 hover:text-foreground"
           )}
         >
-          {isOffersActive && (
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-2xl bg-primary/10 transition-all dark:bg-primary/20"
-            />
-          )}
+          {isOffersActive && <ActiveIndicator isScrolling={isScrolling} />}
           <div className="relative z-10 flex flex-col items-center">
             <HugeiconsIcon
               icon={SentIcon}
-              size={20}
+              size={isScrolling ? 19 : 20}
               strokeWidth={isOffersActive ? 2.2 : 1.8}
               className="transition-transform duration-200 group-hover:scale-110"
             />
-            <span className="mt-1 text-[10px] tracking-tight leading-none">
-              Offers
-            </span>
+            <DockLabel label="Offers" isScrolling={isScrolling} />
           </div>
         </Link>
 
@@ -171,28 +245,22 @@ function MobileDockInner() {
           onClick={() => toggleSidebar()}
           aria-label="Open sidebar menu"
           className={cn(
-            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl py-1 text-center outline-none transition-transform duration-150 active:scale-90",
+            "group relative flex flex-1 flex-col items-center justify-center rounded-2xl text-center outline-none transition-all duration-300 active:scale-90",
+            isScrolling ? "py-0.5" : "py-1",
             isMoreActive
               ? "text-primary dark:text-emerald-400 font-semibold"
               : "text-muted-foreground/85 hover:text-foreground"
           )}
         >
-          {isMoreActive && (
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-2xl bg-primary/10 transition-all dark:bg-primary/20"
-            />
-          )}
+          {isMoreActive && <ActiveIndicator isScrolling={isScrolling} />}
           <div className="relative z-10 flex flex-col items-center">
             <HugeiconsIcon
               icon={Menu01Icon}
-              size={20}
+              size={isScrolling ? 19 : 20}
               strokeWidth={isMoreActive ? 2.2 : 1.8}
               className="transition-transform duration-200 group-hover:scale-110"
             />
-            <span className="mt-1 text-[10px] tracking-tight leading-none">
-              More
-            </span>
+            <DockLabel label="More" isScrolling={isScrolling} />
           </div>
         </button>
       </nav>
