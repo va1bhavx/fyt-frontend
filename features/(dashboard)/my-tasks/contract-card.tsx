@@ -218,14 +218,14 @@ export default function ContractCard({
           </div>
         </div>
       </CardContent>
+      <Separator orientation="vertical" />
 
       {/* RIGHT / FOOTER SECTION: Worker Info & Chevron */}
-      <CardFooter className="flex shrink-0 items-center justify-between gap-3 p-0 pt-1 md:w-52 md:border-l md:border-zinc-800/90 md:pt-0 md:pl-6 lg:w-60">
+      <CardFooter className="flex shrink-0 items-center justify-between gap-3 p-0 pt-1 md:w-52 md:pt-0 md:pl-6 lg:w-60">
         {/* Desktop Worker Presentation */}
         <div className="hidden min-w-0 flex-col gap-2 text-left md:flex">
           <div className="flex items-center gap-2 text-xs text-zinc-400">
             <span>Worker</span>
-            <span className="tracking-tighter text-zinc-600">•••</span>
           </div>
           <div className="flex min-w-0 items-center gap-2.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-900">
