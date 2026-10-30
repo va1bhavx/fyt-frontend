@@ -18,6 +18,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Separator } from "@/components/ui/separator"
+import Link from "next/link"
 
 export type ContractStatus = "Active" | "Submitted" | "Completed"
 export type CategoryVariant = "Development" | "Design" | "Writing" | string
@@ -89,178 +90,180 @@ export default function ContractCard({
   const initials = workerInitials || getInitials(workerName)
 
   return (
-    <Card
-      onClick={onClick}
-      className="group flex w-full cursor-pointer flex-col gap-4 p-4 shadow-sm transition-all hover:border-zinc-700/80 sm:p-6 md:flex-row md:items-center md:justify-between md:gap-6"
-    >
-      {/* Override shadcn's default grid on CardHeader with flex-col & items-start */}
-      <CardHeader className="flex min-w-0 flex-1 flex-col items-start space-y-0 p-0 text-left">
-        <div className="flex w-full items-start justify-between gap-3">
-          <Tooltip>
-            <TooltipTrigger className="max-w-full min-w-0 text-left">
-              <CardTitle className="truncate text-left text-base leading-snug font-semibold text-white sm:text-lg">
+    <Link href={"/contract/12"}>
+      <Card
+        onClick={onClick}
+        className="group flex w-full cursor-pointer flex-col gap-4 p-4 shadow-sm transition-all hover:border-zinc-700/80 sm:p-6 md:flex-row md:items-center md:justify-between md:gap-6"
+      >
+        {/* Override shadcn's default grid on CardHeader with flex-col & items-start */}
+        <CardHeader className="flex min-w-0 flex-1 flex-col items-start space-y-0 p-0 text-left">
+          <div className="flex w-full items-start justify-between gap-3">
+            <Tooltip>
+              <TooltipTrigger className="max-w-full min-w-0 text-left">
+                <CardTitle className="truncate text-left text-base leading-snug font-semibold text-white sm:text-lg">
+                  {title}
+                </CardTitle>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs wrap-break-word">
                 {title}
-              </CardTitle>
+              </TooltipContent>
+            </Tooltip>
+
+            {/* Status Pill (Visible on Mobile, Hidden on Desktop) */}
+            <span
+              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium md:hidden ${currentStatus.badge}`}
+            >
+              {currentStatus.showDotOnMobile && (
+                <span className={`h-2 w-2 rounded-full ${currentStatus.dot}`} />
+              )}
+              {status}
+            </span>
+          </div>
+
+          {/* Category Badge on Mobile (Placed directly under Title) */}
+          <div className="mt-2 md:hidden">
+            <span
+              className={`inline-flex items-center rounded-full border px-3 py-0.5 text-xs font-medium ${categoryClass}`}
+            >
+              {category}
+            </span>
+          </div>
+
+          {/* Description with 2-line clamp + Tooltip fallback */}
+          <Tooltip>
+            <TooltipTrigger className="mt-2.5 w-full max-w-full text-left md:mt-2">
+              <CardDescription className="line-clamp-2 text-left text-xs leading-relaxed text-zinc-400 sm:text-sm">
+                {description}
+              </CardDescription>
             </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-xs wrap-break-word">
-              {title}
+            <TooltipContent side="bottom" className="max-w-sm wrap-break-word">
+              {description}
             </TooltipContent>
           </Tooltip>
 
-          {/* Status Pill (Visible on Mobile, Hidden on Desktop) */}
-          <span
-            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium md:hidden ${currentStatus.badge}`}
-          >
-            {currentStatus.showDotOnMobile && (
+          {/* Category Badge on Desktop (Placed below Description) */}
+          <div className="hidden pt-3.5 md:block">
+            <span
+              className={`inline-flex items-center rounded-full border px-3.5 py-1 text-xs font-medium ${categoryClass}`}
+            >
+              {category}
+            </span>
+          </div>
+        </CardHeader>
+
+        <CardContent className="shrink-0 p-0 md:w-52 lg:w-60">
+          <div className="hidden flex-col items-start gap-3 md:flex">
+            <span
+              className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-medium ${currentStatus.badge}`}
+            >
               <span className={`h-2 w-2 rounded-full ${currentStatus.dot}`} />
-            )}
-            {status}
-          </span>
-        </div>
+              {status}
+            </span>
 
-        {/* Category Badge on Mobile (Placed directly under Title) */}
-        <div className="mt-2 md:hidden">
-          <span
-            className={`inline-flex items-center rounded-full border px-3 py-0.5 text-xs font-medium ${categoryClass}`}
-          >
-            {category}
-          </span>
-        </div>
+            <div className="flex w-full min-w-0 items-center gap-3">
+              <HugeiconsIcon
+                icon={MoneyBag02Icon}
+                className="size-4 shrink-0 text-zinc-400"
+              />
 
-        {/* Description with 2-line clamp + Tooltip fallback */}
-        <Tooltip>
-          <TooltipTrigger className="mt-2.5 w-full max-w-full text-left md:mt-2">
-            <CardDescription className="line-clamp-2 text-left text-xs leading-relaxed text-zinc-400 sm:text-sm">
-              {description}
-            </CardDescription>
-          </TooltipTrigger>
-          <TooltipContent side="bottom" className="max-w-sm wrap-break-word">
-            {description}
-          </TooltipContent>
-        </Tooltip>
+              <div className="min-w-0 text-left">
+                <Tooltip>
+                  <TooltipTrigger className="block max-w-full truncate text-left text-sm leading-tight font-semibold text-white">
+                    {budget}
+                  </TooltipTrigger>
+                  <TooltipContent>{budget}</TooltipContent>
+                </Tooltip>
+                <p className="text-xs text-zinc-400">Agreed budget</p>
+              </div>
+            </div>
 
-        {/* Category Badge on Desktop (Placed below Description) */}
-        <div className="hidden pt-3.5 md:block">
-          <span
-            className={`inline-flex items-center rounded-full border px-3.5 py-1 text-xs font-medium ${categoryClass}`}
-          >
-            {category}
-          </span>
-        </div>
-      </CardHeader>
+            <div className="flex w-full min-w-0 items-center gap-3">
+              <HugeiconsIcon
+                icon={Calendar03Icon}
+                className="size-4 shrink-0 text-zinc-400"
+              />
 
-      <CardContent className="shrink-0 p-0 md:w-52 lg:w-60">
-        <div className="hidden flex-col items-start gap-3 md:flex">
-          <span
-            className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-medium ${currentStatus.badge}`}
-          >
-            <span className={`h-2 w-2 rounded-full ${currentStatus.dot}`} />
-            {status}
-          </span>
+              <div className="min-w-0 text-left">
+                <Tooltip>
+                  <TooltipTrigger className="block max-w-full truncate text-left text-sm leading-tight font-semibold text-white">
+                    {deadline}
+                  </TooltipTrigger>
+                  <TooltipContent>{deadline}</TooltipContent>
+                </Tooltip>
+                <p className="text-xs text-zinc-400">Deadline</p>
+              </div>
+            </div>
+          </div>
 
-          <div className="flex w-full min-w-0 items-center gap-3">
-            <HugeiconsIcon
-              icon={MoneyBag02Icon}
-              className="size-4 shrink-0 text-zinc-400"
-            />
-
+          {/* Mobile Layout: 2-Column Grid with Vertical Divider */}
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:hidden">
             <div className="min-w-0 text-left">
               <Tooltip>
-                <TooltipTrigger className="block max-w-full truncate text-left text-sm leading-tight font-semibold text-white">
+                <TooltipTrigger className="block max-w-full truncate text-left text-sm font-semibold text-white">
                   {budget}
                 </TooltipTrigger>
                 <TooltipContent>{budget}</TooltipContent>
               </Tooltip>
-              <p className="text-xs text-zinc-400">Agreed budget</p>
+              <p className="mt-0.5 text-xs text-zinc-400">Budget</p>
             </div>
-          </div>
 
-          <div className="flex w-full min-w-0 items-center gap-3">
-            <HugeiconsIcon
-              icon={Calendar03Icon}
-              className="size-4 shrink-0 text-zinc-400"
-            />
+            <Separator orientation="vertical" className="h-8 bg-zinc-800" />
 
             <div className="min-w-0 text-left">
               <Tooltip>
-                <TooltipTrigger className="block max-w-full truncate text-left text-sm leading-tight font-semibold text-white">
+                <TooltipTrigger className="block max-w-full truncate text-left text-sm font-semibold text-white">
                   {deadline}
                 </TooltipTrigger>
                 <TooltipContent>{deadline}</TooltipContent>
               </Tooltip>
-              <p className="text-xs text-zinc-400">Deadline</p>
+              <p className="mt-0.5 text-xs text-zinc-400">Deadline</p>
             </div>
           </div>
-        </div>
+        </CardContent>
+        <Separator orientation="vertical" />
 
-        {/* Mobile Layout: 2-Column Grid with Vertical Divider */}
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 md:hidden">
-          <div className="min-w-0 text-left">
-            <Tooltip>
-              <TooltipTrigger className="block max-w-full truncate text-left text-sm font-semibold text-white">
-                {budget}
-              </TooltipTrigger>
-              <TooltipContent>{budget}</TooltipContent>
-            </Tooltip>
-            <p className="mt-0.5 text-xs text-zinc-400">Budget</p>
+        {/* RIGHT / FOOTER SECTION: Worker Info & Chevron */}
+        <CardFooter className="flex shrink-0 items-center justify-between gap-3 p-0 pt-1 md:w-52 md:pt-0 md:pl-6 lg:w-60">
+          {/* Desktop Worker Presentation */}
+          <div className="hidden min-w-0 flex-col gap-2 text-left md:flex">
+            <div className="flex items-center gap-2 text-xs text-zinc-400">
+              <span>Worker</span>
+            </div>
+            <div className="flex min-w-0 items-center gap-2.5">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-900">
+                {initials}
+              </div>
+              <Tooltip>
+                <TooltipTrigger className="max-w-full truncate text-left text-sm font-semibold text-white">
+                  {workerName}
+                </TooltipTrigger>
+                <TooltipContent>{workerName}</TooltipContent>
+              </Tooltip>
+            </div>
           </div>
 
-          <Separator orientation="vertical" className="h-8 bg-zinc-800" />
-
-          <div className="min-w-0 text-left">
-            <Tooltip>
-              <TooltipTrigger className="block max-w-full truncate text-left text-sm font-semibold text-white">
-                {deadline}
-              </TooltipTrigger>
-              <TooltipContent>{deadline}</TooltipContent>
-            </Tooltip>
-            <p className="mt-0.5 text-xs text-zinc-400">Deadline</p>
-          </div>
-        </div>
-      </CardContent>
-      <Separator orientation="vertical" />
-
-      {/* RIGHT / FOOTER SECTION: Worker Info & Chevron */}
-      <CardFooter className="flex shrink-0 items-center justify-between gap-3 p-0 pt-1 md:w-52 md:pt-0 md:pl-6 lg:w-60">
-        {/* Desktop Worker Presentation */}
-        <div className="hidden min-w-0 flex-col gap-2 text-left md:flex">
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <span>Worker</span>
-          </div>
-          <div className="flex min-w-0 items-center gap-2.5">
+          {/* Mobile Worker Presentation */}
+          <div className="flex min-w-0 items-center gap-3 text-left md:hidden">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-900">
               {initials}
             </div>
-            <Tooltip>
-              <TooltipTrigger className="max-w-full truncate text-left text-sm font-semibold text-white">
-                {workerName}
-              </TooltipTrigger>
-              <TooltipContent>{workerName}</TooltipContent>
-            </Tooltip>
+            <div className="min-w-0">
+              <p className="text-[11px] leading-tight text-zinc-400">Worker</p>
+              <Tooltip>
+                <TooltipTrigger className="mt-0.5 block max-w-full truncate text-left text-sm font-semibold text-white">
+                  {workerName}
+                </TooltipTrigger>
+                <TooltipContent>{workerName}</TooltipContent>
+              </Tooltip>
+            </div>
           </div>
-        </div>
 
-        {/* Mobile Worker Presentation */}
-        <div className="flex min-w-0 items-center gap-3 text-left md:hidden">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-900">
-            {initials}
-          </div>
-          <div className="min-w-0">
-            <p className="text-[11px] leading-tight text-zinc-400">Worker</p>
-            <Tooltip>
-              <TooltipTrigger className="mt-0.5 block max-w-full truncate text-left text-sm font-semibold text-white">
-                {workerName}
-              </TooltipTrigger>
-              <TooltipContent>{workerName}</TooltipContent>
-            </Tooltip>
-          </div>
-        </div>
-
-        <HugeiconsIcon
-          icon={ArrowRight01Icon}
-          className="h-5 w-5 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:text-white"
-        />
-      </CardFooter>
-    </Card>
+          <HugeiconsIcon
+            icon={ArrowRight01Icon}
+            className="h-5 w-5 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:text-white"
+          />
+        </CardFooter>
+      </Card>
+    </Link>
   )
 }
