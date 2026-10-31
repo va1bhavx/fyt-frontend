@@ -18,9 +18,9 @@ import MyContractsListing from "./my-contracts-listing"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 
 const tabs = [
-  { key: "tasks", value: "Tasks", icon: Task01Icon },
-  { key: "offers", value: "Offers", icon: TicketStarIcon },
-  { key: "contracts", value: "Contracts", icon: Agreement02Icon },
+  { key: "tasks", value: "My Tasks", icon: Task01Icon },
+  { key: "offers", value: "My Offers", icon: TicketStarIcon },
+  { key: "contracts", value: "My Contracts", icon: Agreement02Icon },
 ]
 
 export default function MyTasksListing() {
