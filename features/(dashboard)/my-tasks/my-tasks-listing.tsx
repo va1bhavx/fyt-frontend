@@ -27,7 +27,7 @@ export default function MyTasksListing() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const activeTab = searchParams.get("tab")
+  const activeTab = searchParams.get("tab") || "tasks"
   const handleTabClick = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
     if (!params) {
